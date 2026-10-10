@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大模型发布泳道时间线 2025.07–2026.10</title>
+<style>
+body{margin:0;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;background:#fff;color:#222}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:#666;font-size:13px;margin-bottom:14px}
+#chart{width:100%;overflow-x:auto}svg{display:block;min-width:900px;width:100%;height:auto}
+.dot{cursor:pointer;transition:r .15s}.dot:hover{r:8}
+#tip{position:fixed;pointer-events:none;background:#fff;border:1px solid #ccc;border-radius:6px;padding:8px 10px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;max-width:320px;z-index:9}
+#tip b{display:block;font-size:14px}#tip .s{color:#1a6;word-break:break-all;font-size:12px}
+footer{font-size:12px;color:#666;margin-top:16px;line-height:1.7}footer a{color:#36c}
+</style></head><body><div class="wrap">
+<h1>大模型发布泳道时间线</h1><div class="sub">2025年7月 – 2026年10月 · 悬停圆点查看详情，点击打开来源</div>
+<div id="chart"></div><div id="tip"></div>
+<footer>数据来源：<a href="https://modeltimeline.com/zh/" target="_blank">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一个节点。整理日期：2026-10-10。</footer>
+</div>
+<script>
+const MT="https://modeltimeline.com/zh/";
+const DATA=[
+{company:"OpenAI",model:"GPT-5",date:"2025-08-07",source:"https://openai.com/index/introducing-gpt-5/"},
+{company:"OpenAI",model:"GPT-5.1-codex",date:"2025-11-14",source:MT},
+{company:"OpenAI",model:"GPT-5.2-codex",date:"2025-12-19",source:MT},
+{company:"OpenAI",model:"GPT-5.3-codex",date:"2026-02-06",source:MT},
+{company:"OpenAI",model:"GPT-5.4",date:"2026-03-05",source:MT},
+{company:"OpenAI",model:"GPT-5.4-mini",date:"2026-03-17",source:MT},
+{company:"OpenAI",model:"GPT-5.5",date:"2026-04-24",source:MT},
+{company:"OpenAI",model:"GPT-5.6 Sol / Terra / Luna",date:"2026-07-09",source:MT},
+{company:"OpenAI",model:"GPT-6 Astra",date:"2026-09-05",source:"https://openai.com/index/gpt-6-astra/"},
+{company:"OpenAI",model:"GPT-6 Sol / Luna",date:"2026-09-23",source:"https://openai.com/index/introducing-gpt-6-sol-and-luna/"},
+{company:"OpenAI",model:"GPT-6.1 Sol",date:"2026-09-29",source:"https://openai.com/index/introducing-gpt-6-1-sol/"},
+{company:"Anthropic",model:"Claude Opus 4.1",date:"2025-08-05",source:"https://www.anthropic.com/news/claude-opus-4-1"},
+{company:"Anthropic",model:"Claude Sonnet 4.5",date:"2025-09-29",source:"https://www.anthropic.com/news/claude-sonnet-4-5"},
+{company:"Anthropic",model:"Claude Haiku 4.5",date:"2025-10-15",source:"https://www.anthropic.com/news/claude-haiku-4-5"},
+{company:"Anthropic",model:"Claude Opus 4.5",date:"2025-11-24",source:"https://www.anthropic.com/news/claude-opus-4-5"},
+{company:"Anthropic",model:"Claude Opus 4.6",date:"2026-02-05",source:"https://www.anthropic.com/news/claude-opus-4-6"},
+{company:"Anthropic",model:"Claude Sonnet 4.6",date:"2026-02-17",source:"https://www.anthropic.com/news/claude-sonnet-4-6"},
+{company:"Anthropic",model:"Claude Opus 4.7",date:"2026-04-16",source:"https://www.anthropic.com/news/claude-opus-4-7"},
+{company:"Anthropic",model:"Claude Opus 4.8",date:"2026-05-28",source:MT},
+{company:"Anthropic",model:"Claude Mythos 5 / Fable 5",date:"2026-06-09",source:MT},
+{company:"Anthropic",model:"Claude Sonnet 5",date:"2026-06-30",source:MT},
+{company:"Anthropic",model:"Claude Opus 5",date:"2026-07-24",source:MT},
+{company:"Anthropic",model:"Claude Fable 5.1",date:"2026-09-02",source:MT},
+{company:"Anthropic",model:"Claude Opus 5.5",date:"2026-09-23",source:MT},
+{company:"Anthropic",model:"Claude Sonnet 5.5",date:"2026-09-28",source:"https://www.anthropic.com/claude-sonnet-5-5"},
+{company:"Anthropic",model:"Claude Haiku 5.5",date:"2026-10-07",source:"https://www.anthropic.com/claude-haiku-5-5"},
+{company:"Google",model:"Gemini 3.0 Pro",date:"2025-11-18",source:"https://blog.google/products/gemini/gemini-3/"},
+{company:"Google",model:"Gemini 3.0 Flash",date:"2025-12-17",source:MT},
+{company:"Google",model:"Gemini 3.1 Pro",date:"2026-02-19",source:MT},
+{company:"Google",model:"Gemini 3.1 Flash-Lite",date:"2026-03-03",source:MT},
+{company:"Google",model:"Gemini 3.5 Flash",date:"2026-05-20",source:MT},
+{company:"Google",model:"Gemini 3.6 Flash / 3.5 Flash-Lite",date:"2026-07-21",source:MT},
+{company:"Google",model:"Gemini 3.7 Flash",date:"2026-08-14",source:MT},
+{company:"Google",model:"Gemini 3.8 Flash",date:"2026-09-03",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/"},
+{company:"Google",model:"Gemini 4 Argon",date:"2026-09-30",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/"},
+{company:"Meta",model:"Muse Spark",date:"2026-04-08",source:"https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/"},
+{company:"Meta",model:"Muse Spark 1.1",date:"2026-07-09",source:"https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/"},
+{company:"Meta",model:"Muse Spark 1.2",date:"2026-08-05",source:MT},
+{company:"Meta",model:"Muse Spark 1.3",date:"2026-09-03",source:MT},
+{company:"Meta",model:"Muse personal agent",date:"2026-09-08",source:"https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/"},
+{company:"阿里巴巴",model:"Qwen3-Coder",date:"2025-07-23",source:"https://qwenlm.github.io/blog/qwen3-coder/"},
+{company:"阿里巴巴",model:"Qwen3-Max",date:"2025-09-24",source:MT},
+{company:"阿里巴巴",model:"Qwen3.5-Plus",date:"2026-02-16",source:MT},
+{company:"阿里巴巴",model:"Qwen3.5-Omni",date:"2026-03-30",source:MT},
+{company:"阿里巴巴",model:"Qwen3.6-Plus",date:"2026-04-02",source:MT},
+{company:"阿里巴巴",model:"Qwen3.6-Max-Preview",date:"2026-04-20",source:MT},
+{company:"阿里巴巴",model:"Qwen3.7-Max",date:"2026-05-20",source:MT},
+{company:"阿里巴巴",model:"Qwen3.7-Plus",date:"2026-06-02",source:MT},
+{company:"阿里巴巴",model:"Qwen3.8-Max-Preview",date:"2026-07-19",source:MT},
+{company:"阿里巴巴",model:"Qwen3.8-Max",date:"2026-08-03",source:MT},
+{company:"阿里巴巴",model:"Qwen3.8-2.4T-A95B（开源）",date:"2026-08-12",source:"https://modelscope.csdn.net/6a7d638710ee7a33f29a830d.html"},
+{company:"阿里巴巴",model:"Qwen3.8-Flash-Next",date:"2026-08-26",source:MT},
+{company:"阿里巴巴",model:"Qwen3.8-Max-0902",date:"2026-09-02",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
+{company:"阿里巴巴",model:"Qwen3.8-Omni-Flash",date:"2026-09-17",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
+{company:"阿里巴巴",model:"Qwen-Image-2.1-Pro",date:"2026-10-02",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
+{company:"阿里巴巴",model:"Qwen-Image-2.1-Turbo",date:"2026-10-09",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
+{company:"字节跳动",model:"Seedance 2.0",date:"2026-02-12",source:"https://seed.bytedance.com/zh/blog/official-launch-of-seedance-2-0"},
+{company:"字节跳动",model:"Seedream 5.0 Lite",date:"2026-02-13",source:"https://seed.bytedance.com/zh/blog/deeper-thinking-more-accurate-generation-introducing-seedream-5-0-lite"},
+{company:"字节跳动",model:"Seed 2.0",date:"2026-02-14",source:"https://seed.bytedance.com/zh/blog/seed-2-0-official-launch"},
+{company:"字节跳动",model:"Seed 2.1 Pro / Turbo",date:"2026-06-23",source:"https://seed.bytedance.com/zh/blog/seed2-1-officially-released-advancing-ai-productivity"},
+{company:"字节跳动",model:"Seedream 5.0 Pro",date:"2026-07-08",source:"https://seed.bytedance.com/zh/blog/beyond-generation-it-understands-design-introducing-seedream-5-0-pro"},
+{company:"字节跳动",model:"Seedance 2.5",date:"2026-07-31",source:"https://seed.bytedance.com/zh/blog/one-take-creation-flexible-referencing-introducing-seedance-2-5"},
+{company:"字节跳动",model:"Seed-2.1-Pro-0915",date:"2026-09-16",source:"https://www2.xinhuanet.com/tech/20260916/6c5139a7840145b6b11f0ae9e00d9cb2/c.html"},
+{company:"腾讯",model:"HunyuanImage 3.0",date:"2025-09-28",source:"https://www.ithome.com/0/886/367.htm"},
+{company:"腾讯",model:"Hy3 preview",date:"2026-04-23",source:"https://www.tencent.com/zh-cn/articles/2202386.html"},
+{company:"腾讯",model:"Hy3",date:"2026-07-06",source:"https://www.tencent.com/zh-cn/tencent-hunyuan-officially-releases-hy3-advancing-agent-capabilities-and-deeper-product-integration/"},
+{company:"腾讯",model:"Hy4 preview",date:"2026-08-28",source:"https://www.tencent.com/zh-cn/tencent-releases-and-open-sources-tencent-hy4-preview/"},
+{company:"DeepSeek",model:"DeepSeek-V3.1",date:"2025-08-21",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V3.2-Exp",date:"2025-09-29",source:"https://api-docs.deepseek.com/news/news250929"},
+{company:"DeepSeek",model:"DeepSeek-V3.2 / V3.2-Speciale",date:"2025-12-01",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V4 Pro / Flash Preview",date:"2026-04-24",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V4 Flash",date:"2026-07-31",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V4 Pro",date:"2026-08-13",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V4 Flash Vision Exp",date:"2026-08-21",source:MT},
+{company:"DeepSeek",model:"DeepSeek-V4.1-Flash",date:"2026-09-10",source:"https://www.deepseek.com/news/deepseek-v4-1-flash/"},
+{company:"华为",model:"openPangu-Ultra-MoE-718B-V1.1",date:"2025-10-15",source:"https://www.hiascend.com/developer/techArticles/20251015-5"},
+{company:"华为",model:"openPangu-2.0-Flash",date:"2026-06-30",source:"https://m.ithome.com/html/983966.htm"},
+{company:"华为",model:"openPangu-2.0-Pro",date:"2026-07-31",source:"https://www.huawei.com/cn/news/2026/7/openpangu"},
+{company:"智谱",model:"GLM-4.5 / 4.5-Air",date:"2025-07-28",source:MT},
+{company:"智谱",model:"GLM-4.6",date:"2025-09-30",source:MT},
+{company:"智谱",model:"GLM-4.7",date:"2025-12-23",source:MT},
+{company:"智谱",model:"GLM-5",date:"2026-02-11",source:MT},
+{company:"智谱",model:"GLM-5-Turbo",date:"2026-03-16",source:MT},
+{company:"智谱",model:"GLM-5.1",date:"2026-04-08",source:MT},
+{company:"智谱",model:"GLM-5V-Turbo",date:"2026-04-12",source:MT},
+{company:"智谱",model:"GLM-5.2",date:"2026-06-13",source:MT},
+{company:"智谱",model:"GLM-5.3",date:"2026-08-14",source:MT},
+{company:"智谱",model:"GLM-5.3-Flash",date:"2026-08-26",source:MT},
+{company:"智谱",model:"GLM-5.3-FlashX",date:"2026-09-18",source:"https://finance.sina.com.cn/tech/digi/2026-09-18/doc-inisfprc3416049.shtml"},
+{company:"Kimi",model:"Kimi K2",date:"2025-07-11",source:"https://moonshotai.github.io/Kimi-K2/"},
+{company:"Kimi",model:"Kimi K2.5",date:"2026-01-27",source:"https://www.kimi.com/blog/kimi-k2-5"},
+{company:"Kimi",model:"Kimi K2.6",date:"2026-04-20",source:MT},
+{company:"Kimi",model:"Kimi K2.7 Code",date:"2026-06-12",source:MT},
+{company:"Kimi",model:"Kimi K3",date:"2026-07-17",source:MT},
+{company:"Kimi",model:"Kimi K2.8 Preview",date:"2026-09-11",source:MT},
+];
+const COMP=[["OpenAI","#22b5a3"],["Anthropic","#e8774e"],["Google","#1a9be0"],["Meta","#3b6db5"],["阿里巴巴","#a25ad6"],["字节跳动","#555"],["腾讯","#2c6fb8"],["DeepSeek","#8a2be2"],["华为","#d4141d"],["智谱","#3478c0"],["Kimi","#111"]];
+const T0=new Date("2025-07-01"),T1=new Date("2026-10-15");
+const W=1240,L=130,R=930,RC=950,TOP=50,ROW=40,H=TOP+ROW*COMP.length+20,NS="http://www.w3.org/2000/svg";
+const x=d=>L+(new Date(d)-T0)/(T1-T0)*(R-L);
+const svg=document.createElementNS(NS,"svg");svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+const el=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e};
+for(let y=2025,m=7;y<2026||m<=10;m++){if(m>12){m=1;y++}const d=`${y}-${String(m).padStart(2,"0")}-01`,X=x(d),q=(m-1)%3==0;
+ el("line",{x1:X,x2:X,y1:TOP-14,y2:H-10,stroke:q?"#ccc":"#eee","stroke-dasharray":q?"":"2,3"});
+ if(q||m==10&&y==2026)el("text",{x:X,y:TOP-20,"text-anchor":"middle","font-size":13,fill:"#555"},m==10&&y==2026?"10月":`${y}.${String(m).padStart(2,"0")}`);}
+el("text",{x:RC,y:TOP-20,"font-size":15,"font-weight":"bold",fill:"#1a2a5a"},"最新节点");
+const tip=document.getElementById("tip");
+COMP.forEach(([c,col],i)=>{const Y=TOP+ROW*i+12;
+ el("text",{x:10,y:Y+6,"font-size":17,"font-weight":"bold",fill:col},c);
+ el("line",{x1:L,x2:R,y1:Y,y2:Y,stroke:col,"stroke-width":1.5});
+ const items=DATA.filter(d=>d.company==c).sort((a,b)=>a.date<b.date?-1:1);
+ items.forEach(d=>{const ci=el("circle",{class:"dot",cx:x(d.date),cy:Y,r:5,fill:col,stroke:"#fff","stroke-width":1});
+  ci.onmousemove=e=>{tip.innerHTML=`<b>${d.model}</b>${c} · ${d.date}<div class="s">${d.source}</div>`;tip.style.display="block";tip.style.left=Math.min(e.clientX+12,innerWidth-330)+"px";tip.style.top=e.clientY+12+"px"};
+  ci.onmouseleave=()=>tip.style.display="none";ci.onclick=()=>window.open(d.source,"_blank")});
+ const last=items[items.length-1];
+ if(last){el("text",{x:RC,y:Y+2,"font-size":14,"font-weight":"bold",fill:col},last.model);el("text",{x:RC,y:Y+17,"font-size":11,fill:"#777"},last.date+`  ·  共${items.length}个节点`)}});
+document.getElementById("chart").appendChild(svg);
+</script></body></html>
