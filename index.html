@@ -111,6 +111,7 @@ svg text{font-family:inherit}
 #tip .s{font-size:12px;color:var(--mut);margin-top:2px}
 #tip a{color:var(--ink2);text-underline-offset:2px}
 #tip .tag{display:inline-block;margin-left:6px;padding:0 5px;border:1px solid var(--rule2);border-radius:3px;font-size:11px;line-height:16px;color:var(--ink2)}
+#latest h3{font-size:14px;margin:20px 0 6px;color:var(--ink2);font-weight:600}#latest .lr{display:grid;grid-template-columns:14px 78px 1fr;column-gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule);font-size:13px}#latest .lr i{width:12px;height:5px;border-radius:3px;align-self:center}#latest .lm{font-weight:600}#latest .ls{grid-column:3;color:var(--mut);font-size:12px}
 details{margin-top:26px;font-size:14px}
 summary{cursor:pointer;color:var(--ink2)}
 table{border-collapse:collapse;margin-top:12px;font-size:13px;width:100%;max-width:760px}
@@ -134,6 +135,7 @@ footer a{color:var(--ink2)}
 <div class="key" id="key"></div>
 <div class="filters" id="filters"></div>
 <div class="map"><div class="labels" id="labels"></div><div class="scroll" id="scroll"></div></div>
+<div id="latest"></div>
 <details><summary id="tblsum"></summary><div id="tbl"></div></details>
 <footer id="foot"></footer>
 </div>
@@ -236,31 +238,97 @@ const DATA=[
 {company:"Kimi",model:"Kimi K2.7 Code",date:"2026-06-12",source:MT},
 {company:"Kimi",model:"Kimi K3",date:"2026-07-17",source:MT},
 {company:"Kimi",model:"Kimi K2.8 Preview",date:"2026-09-11",source:MT},
+{company:"xAI",model:"Grok 4 / Grok 4 Heavy",date:"2025-07-09",source:"https://x.ai/news/grok-4"},
+{company:"xAI",model:"Grok Code Fast 1",date:"2025-08-28",source:"https://x.ai/news/grok-code-fast-1"},
+{company:"xAI",model:"Grok 4 Fast",date:"2025-09-19",source:"https://x.ai/news/grok-4-fast"},
+{company:"xAI",model:"Grok 4.1",date:"2025-11-17",source:"https://x.ai/news/grok-4-1"},
+{company:"xAI",model:"Grok 4.1 Fast",date:"2025-11-19",source:"https://x.ai/news/grok-4-1-fast"},
+{company:"xAI",model:"Grok 4.2",date:"2026-02-18",source:MT},
+{company:"xAI",model:"Grok 4.3",date:"2026-04-30",source:MT},
+{company:"xAI",model:"Grok 4.5",date:"2026-07-16",source:"https://x.ai/news/grok-4-5"},
+{company:"xAI",model:"Grok 4.6",date:"2026-08-12",source:"https://x.ai/news/grok-4-6"},
+{company:"xAI",model:"Grok 4.7",date:"2026-09-21",source:"https://x.ai/news/grok-4-7"},
+{company:"Microsoft",model:"Phi-4-mini-flash-reasoning",date:"2025-07-09",source:"https://azure.microsoft.com/en-us/blog/reasoning-reimagined-introducing-phi-4-mini-flash-reasoning/"},
+{company:"Microsoft",model:"MAI-1-preview / MAI-Voice-1",date:"2025-08-28",source:"https://microsoft.ai/news/two-new-in-house-models/"},
+{company:"Microsoft",model:"MAI-Image-1",date:"2025-10-13",source:"https://microsoft.ai/story/introducing-mai-image-1-debuting-in-the-top-10-on-lmarena/"},
+{company:"Microsoft",model:"MAI-Image-2",date:"2026-03-19",source:"https://microsoft.ai/story/introducing-mai-image-2/"},
+{company:"Microsoft",model:"MAI-Transcribe-1",date:"2026-04-02",source:"https://microsoft.ai/news/today-were-announcing-3-new-world-class-mai-models-available-in-foundry/"},
+{company:"Microsoft",model:"MAI-Thinking-1 / MAI-Image-2.5 / MAI-Voice-2 / MAI-Code-1-Flash",date:"2026-06-02",source:"https://microsoft.ai/news/building-a-hillclimbing-machine-launching-seven-new-mai-models/"},
+{company:"Microsoft",model:"MAI-Image-2.5-Pro / MAI-Voice-2-Flash",date:"2026-07-23",source:"https://microsoft.ai/news/introducing-mai-image-2-5-pro-and-mai-voice-2-flash/"},
+{company:"Microsoft",model:"MAI-Image-2.6",date:"2026-08-10",source:"https://microsoft.ai/news/mai-image-2-6-launches-at-no-2-on-arena-ahead-of-google-meta-and-xai/"},
+{company:"Microsoft",model:"MAI-Transcribe-2",date:"2026-09-03",source:"https://microsoft.ai/news/mai-transcribe-2-is-the-fastest-most-accurate-and-cheapest-speech-recognition-model-in-the-world/"},
+{company:"Microsoft",model:"MAI-Code-1.1-Flash",date:"2026-10-07",source:"https://microsoft.ai/news/mai-code-1-1-flash-br-better-faster-at-a-quarter-of-the-cost/"},
+{company:"Amazon",model:"Nova 2 Lite / Pro / Omni / Sonic",date:"2025-12-02",source:"https://www.aboutamazon.com/news/aws/aws-agentic-ai-amazon-bedrock-nova-models"},
+{company:"Amazon",model:"Nova 2.5 Sonic",date:"2026-10-05",source:"https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-nova-2.5-sonic/"},
+{company:"Mistral",model:"Devstral Medium / Small 1.1",date:"2025-07-10",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Voxtral",date:"2025-07-15",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Magistral 1.1",date:"2025-07-24",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Codestral 2508",date:"2025-07-30",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Mistral Medium 3.1",date:"2025-08-12",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Magistral 1.2",date:"2025-09-17",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Mistral Large 3 / Ministral 3",date:"2025-12-02",source:"https://mistral.ai/news/mistral-3/"},
+{company:"Mistral",model:"Devstral 2",date:"2025-12-09",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Voxtral Mini Transcribe 2",date:"2026-02-04",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Mistral Small 4",date:"2026-03-16",source:"https://mistral.ai/news/mistral-small-4/"},
+{company:"Mistral",model:"Voxtral TTS",date:"2026-03-23",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Mistral Medium 3.5",date:"2026-04-28",source:"https://docs.mistral.ai/resources/changelogs"},
+{company:"Mistral",model:"Mistral Large 4 (preview)",date:"2026-10-06",source:"https://mistral.ai/news/mistral-large-4/"},
+{company:"MiniMax",model:"MiniMax-M2",date:"2025-10-27",source:"https://www.minimax.io/news/minimax-m2"},
+{company:"MiniMax",model:"MiniMax-Hailuo-2.3",date:"2025-10-28",source:"https://www.minimax.io/news/minimax-hailuo-23"},
+{company:"MiniMax",model:"MiniMax-M2.1",date:"2025-12-23",source:"https://www.minimax.io/news/minimax-m21"},
+{company:"MiniMax",model:"MiniMax-M2.5",date:"2026-02-12",source:"https://www.minimax.io/news/minimax-m25"},
+{company:"MiniMax",model:"MiniMax-M2.7",date:"2026-03-18",source:"https://platform.minimaxi.com/docs/release-notes/models"},
+{company:"MiniMax",model:"MiniMax-M3",date:"2026-06-01",source:"https://www.minimax.io/blog/minimax-m3"},
+{company:"MiniMax",model:"MiniMax H3",date:"2026-07-31",source:"https://www.minimax.io/blog/minimax-h3"},
+{company:"百度",model:"文心 X1.1",date:"2025-09-09",source:"https://home.baidu.com/home/index/news_detail/id/18038"},
+{company:"百度",model:"文心 5.0 Preview",date:"2025-11-13",source:"https://www.cnr.cn/bj/sijh/20251113/t20251113_527429007.shtml"},
+{company:"百度",model:"文心 5.0",date:"2026-01-22",source:"https://home.baidu.com/home/index/news_detail/id/18049"},
+{company:"百度",model:"文心 5.1",date:"2026-05-09",source:"https://ernie.baidu.com/blog/zh/posts/ernie-5.1-0508-release/"},
+{company:"阶跃星辰",model:"Step 3",date:"2025-07-25",source:"https://www.jiemian.com/article/13088863.html"},
+{company:"阶跃星辰",model:"Step-Audio-R1.1",date:"2026-01-15",source:"https://www.stepfun.com/news"},
+{company:"阶跃星辰",model:"Step 3.5 Flash",date:"2026-02-02",source:"https://www.stepfun.com/news/step-3-5-flash-launch"},
+{company:"阶跃星辰",model:"Step Image Edit 2",date:"2026-04-29",source:"https://www.stepfun.com/news"},
+{company:"阶跃星辰",model:"Step 3.7 Flash",date:"2026-05-29",source:"https://news.qq.com/rain/a/20260529A067QJ00"},
+{company:"阶跃星辰",model:"StepAudio 3",date:"2026-09-15",source:"https://www.stepfun.com/news"},
+{company:"阶跃星辰",model:"Step 5 Preview",date:"2026-09-20",source:"https://www.stepfun.com/news/step-5-preview"},
+{company:"可灵",model:"Kling 2.5 Turbo",date:"2025-09-23",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/kelingai-25-turboshipinmoxingshangxian"},
+{company:"可灵",model:"Kling O1",date:"2025-12-01",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/quanqiushougedayitongduomotaishipinmoxingkelingo1fabu"},
+{company:"可灵",model:"Kling 2.6",date:"2025-12-03",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/keling26moxingtuichuyinhuatongchunengli"},
+{company:"可灵",model:"Kling 3.0 / 3.0 Omni",date:"2026-02-05",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/keling30xiliemoxingquanmianshangxian"},
+{company:"可灵",model:"Kling 3.0 Turbo",date:"2026-06-17",source:"https://kling.ai/release-note/release-notes/Kling_3_Turbo"},
+{company:"小米",model:"MiMo-V2-Flash",date:"2025-12-16",source:"https://mimo.mi.com/docs/zh-CN/updates/model"},
+{company:"小米",model:"MiMo-V2-Pro / V2-Omni / V2-TTS",date:"2026-03-18",source:"https://mimo.mi.com/docs/zh-CN/news/previous-news/v2-pro-release"},
+{company:"小米",model:"MiMo-V2.5 / V2.5-Pro",date:"2026-04-23",source:"https://mimo.mi.com/docs/zh-CN/updates/model"},
+{company:"小米",model:"MiMo-V2.5-ASR",date:"2026-06-02",source:"https://mimo.mi.com/docs/zh-CN/updates/model"},
+{company:"小米",model:"MiMo-V2.6-Pro / V2.6-Flash",date:"2026-09-22",source:"https://mimo.mi.com/docs/zh-CN/news/latest/v2-6"},
 ];
 // 每条线路的颜色：[浅色, 深色, 分组]。颜色跟着公司走，筛选时不重排。
-const LINES={"OpenAI":["#10a37f","#129673","us"],"Anthropic":["#c4673f","#c46b4b","us"],"Google":["#4285f4","#4f87ee","us"],"Meta":["#0a9c93","#0ea294","us"],
-"阿里巴巴":["#e2600c","#d66c22","cn"],"字节跳动":["#3c7ff0","#4f80ec","cn"],"腾讯":["#2fa52a","#3a9f33","cn"],"DeepSeek":["#5b63e8","#6a6fe6","cn"],"华为":["#e0302f","#e04541","cn"],"智谱":["#7b5cf0","#8467ea","cn"],"Kimi":["#d0408f","#cd4f95","cn"]};
+const LINES={"OpenAI":["#10a37f","#129673","us"],"Anthropic":["#c4673f","#c46b4b","us"],"Google":["#4285f4","#4f87ee","us"],"Meta":["#1f74ad","#4a9bd1","us"],
+"xAI":["#2a2b2f","#d9d9d4","us"],"Microsoft":["#0ea5c6","#22c3e0","us"],"Amazon":["#9e792e","#c29a4a","us"],
+"Mistral":["#c99700","#e8c02a","eu"],
+"阿里巴巴":["#ea580c","#f97316","cn"],"字节跳动":["#0b3b8c","#bfdbfe","cn"],"腾讯":["#2fa52a","#45b83d","cn"],"DeepSeek":["#4338ca","#a5b4fc","cn"],"华为":["#e0302f","#ef4b4a","cn"],"智谱":["#9333ea","#d8b4fe","cn"],"Kimi":["#db2777","#f05aa0","cn"],
+"MiniMax":["#4c0519","#fda4af","cn"],"百度":["#3f6212","#d9f99d","cn"],"阶跃星辰":["#8f9e2e","#b5c447","cn"],"可灵":["#cf59cf","#e58ae5","cn"],"小米":["#6b7280","#9ca3af","cn"]};
 const ORDER=Object.keys(LINES);
 // 大版本首发：画成换乘站并直接标注。规则是"该系列新整数版本号的第一次发布"，按需增删。
-const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Muse Spark":"Muse Spark","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3"};
-const OFFICIAL=["openai.com","anthropic.com","blog.google","about.fb.com","ai.meta.com","qwenlm.github.io","help.aliyun.com","seed.bytedance.com","tencent.com","deepseek.com","hiascend.com","huawei.com","moonshotai.github.io","kimi.com"];
-const NAMES={zh:{},en:{"阿里巴巴":"Alibaba","字节跳动":"ByteDance","腾讯":"Tencent","华为":"Huawei","智谱":"Zhipu AI"}};
+const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Muse Spark":"Muse Spark","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3","Grok 4 / Grok 4 Heavy":"Grok 4","MAI-1-preview / MAI-Voice-1":"MAI-1","Nova 2 Lite / Pro / Omni / Sonic":"Nova 2","Mistral Large 3 / Ministral 3":"Mistral 3","Mistral Small 4":"Small 4","Mistral Large 4 (preview)":"Large 4","MiniMax-M2":"M2","MiniMax-M3":"M3","文心 5.0 Preview":"文心 5","Step 3":"Step 3","Step 5 Preview":"Step 5","Kling 3.0 / 3.0 Omni":"Kling 3","MiMo-V2-Flash":"MiMo-V2"};
+const OFFICIAL=["x.ai","microsoft.ai","azure.microsoft.com","aboutamazon.com","aws.amazon.com","mistral.ai","docs.mistral.ai","minimax.io","platform.minimaxi.com","home.baidu.com","ernie.baidu.com","stepfun.com","ir.kuaishou.com","kling.ai","mimo.mi.com","openai.com","anthropic.com","blog.google","about.fb.com","ai.meta.com","qwenlm.github.io","help.aliyun.com","seed.bytedance.com","tencent.com","deepseek.com","hiascend.com","huawei.com","moonshotai.github.io","kimi.com"];
+const NAMES={zh:{},en:{"百度":"Baidu","阶跃星辰":"StepFun","可灵":"Kling","小米":"Xiaomi","阿里巴巴":"Alibaba","字节跳动":"ByteDance","腾讯":"Tencent","华为":"Huawei","智谱":"Zhipu AI"}};
 const EN_M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const I18N={
 zh:{title:"AI 模型发布线路图",
  lede:(n,c)=>`2025 年 7 月到 2026 年 10 月，${c} 家公司共 ${n} 次发布。每家公司是一条线路，每次发布是一站；最后一站之后的点线，是它到今天为止没有新发布的时长。`,
  major:"大版本首发",minor:"版本更新",multi:"同日多款",gap:"距上次发布",today:"今天",hint:"悬停站点看详情，点击固定卡片并打开来源",
- groups:{us:"美国",cn:"中国"},monthly:"每月发布",mon:m=>`${m}月`,d:(m,d)=>`${m}月${d}日`,full:(y,m,d)=>`${y}年${m}月${d}日`,
+ latestH:"各公司最新一站",groups:{us:"美国",eu:"欧洲",cn:"中国"},monthly:"每月发布",mon:m=>`${m}月`,d:(m,d)=>`${m}月${d}日`,full:(y,m,d)=>`${y}年${m}月${d}日`,
  ago:n=>n<=0?"今天":`${n} 天前`,sub:(dt,ago)=>`${dt}（${ago}）`,count:n=>`${n} 次`,off:"官方",third:"第三方",
  tbl:n=>`以表格查看全部 ${n} 次发布`,cols:["日期","公司","模型","来源"],filt:"显示或隐藏线路",themeL:"切换深浅色",
- foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-10。'},
+ foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-10。'},
 en:{title:"AI Model Release Map",
  lede:(n,c)=>`${n} releases from ${c} companies, July 2025 to October 2026. Each company is a line and each release a stop; the dotted tail after the last stop is how long it has gone without a new release.`,
  major:"First of a major version",minor:"Version update",multi:"Several on one day",gap:"Since latest release",today:"Today",hint:"Hover a stop for details; click to pin the card and open sources",
- groups:{us:"United States",cn:"China"},monthly:"Per month",mon:m=>EN_M[m-1],d:(m,d)=>`${EN_M[m-1]} ${d}`,full:(y,m,d)=>`${EN_M[m-1]} ${d}, ${y}`,
+ latestH:"Latest stop by company",groups:{us:"United States",eu:"Europe",cn:"China"},monthly:"Per month",mon:m=>EN_M[m-1],d:(m,d)=>`${EN_M[m-1]} ${d}`,full:(y,m,d)=>`${EN_M[m-1]} ${d}, ${y}`,
  ago:n=>n<=0?"today":n==1?"1 day ago":`${n} days ago`,sub:(dt,ago)=>`${dt} (${ago})`,count:n=>`${n}`,off:"Official",third:"Third-party",
  tbl:n=>`View all ${n} releases as a table`,cols:["Date","Company","Model","Source"],filt:"Show or hide lines",themeL:"Toggle dark mode",
- foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-10.'},};
+ foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-10.'},};
 
 const qp=new URLSearchParams(location.search);
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
@@ -312,11 +380,11 @@ function render(){
 
 function draw(){
  const t=I18N[lang];
- const narrow=innerWidth<640,W=Math.max(sc.clientWidth,880),TW=narrow?138:196,X0=16,X1=W-TW-14;
+ const narrow=innerWidth<640,W=Math.max(sc.clientWidth,narrow?640:880),TW=narrow?0:196,X0=16,X1=W-TW-14;
  const last=DATA.reduce((m,d)=>d.date>m?d.date:m,"0");
  const t0=new Date(2025,6,1),t1=new Date(Math.max(TODAY,pd(last))+10*DAY);
  const x=d=>X0+(d-t0)/(t1-t0)*(X1-X0);
- const YR=17,MON=39,BAR0=50,BARH=28,ROW=56;
+ const YR=17,MON=39,BAR0=50,BARH=28,ROW=narrow?44:46;
  const svg=document.createElementNS(NS,"svg");
  const el=(tg,a,txt,p=svg)=>{const e=document.createElementNS(NS,tg);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e};
  labs.innerHTML="";
@@ -356,6 +424,7 @@ function draw(){
  el("line",{x1:TX,x2:TX,y1:MON+6,y2:H-22,stroke:"var(--ink)","stroke-width":1});
  el("text",{x:TX,y:H-8,"text-anchor":"middle","font-size":12,"font-weight":600,fill:"var(--ink)",class:"halo"},t.today);
 
+ const latest=[];
  const ring=el("circle",{r:9,fill:"none","stroke-width":2,visibility:"hidden"});
  lanes.forEach(L=>{
   const c=L.c,C=col(c),Y=L.ly;
@@ -378,9 +447,10 @@ function draw(){
   });
   // 终点站：最新一次发布
   const ln=nodes[nodes.length-1],lm=ln.arr[ln.arr.length-1],[yy,mm,dd]=ymd(ln.date);
-  const nm=el("text",{x:X1+22,y:Y+1,"font-size":narrow?12.5:13.5,"font-weight":600,fill:"var(--ink)"},lm.model);
-  el("text",{x:X1+22,y:Y+17,"font-size":narrow?11:12,fill:"var(--mut)"},t.sub(t.d(mm,dd),t.ago(Math.round((TODAY-pd(ln.date))/DAY))));
-  L.nm=nm;L.nodes=nodes;
+  const agoTxt=t.sub(t.d(mm,dd),t.ago(Math.round((TODAY-pd(ln.date))/DAY)));latest.push({c,model:lm.model,sub:agoTxt});
+  if(!narrow){const nm=el("text",{x:X1+22,y:Y+1,"font-size":narrow?12.5:13.5,"font-weight":600,fill:"var(--ink)"},lm.model);
+  el("text",{x:X1+22,y:Y+17,"font-size":12,fill:"var(--mut)"},agoTxt);L.nm=nm}
+  L.nodes=nodes;
   const hit=el("rect",{x:0,y:L.top,width:X1+8,height:ROW,fill:"transparent",style:"cursor:pointer"});
   const near=e=>{const r=svg.getBoundingClientRect(),px=e.clientX-r.left;let best=null,bd=14;nodes.forEach(n=>{const dd=Math.abs(n.X-px);if(dd<bd){bd=dd;best=n}});return best};
   const at=n=>{const r=svg.getBoundingClientRect();return[r.left+n.X,r.top+n.Y]};
@@ -389,6 +459,7 @@ function draw(){
   hit.addEventListener("click",e=>{const n=near(e);if(!n)return;e.stopPropagation();ring.setAttribute("cx",n.X);ring.setAttribute("cy",Y);ring.setAttribute("stroke",C);ring.setAttribute("visibility","visible");pinned=n;showTip(n,...at(n),true)});
  });
  svg.appendChild(ring);
+ const lt=document.getElementById("latest");lt.innerHTML=narrow?`<h3>${t.latestH}</h3>`+latest.map(r=>`<div class="lr"><i style="background:${col(r.c)}"></i><b>${cn(r.c)}</b><span class="lm">${esc(r.model)}</span><span class="ls">${r.sub}</span></div>`).join(""):"";
  sc.innerHTML="";sc.appendChild(svg);
  // 测量后处理：终点站名过长截断；标注贴边时改对齐
  lanes.forEach(L=>{
