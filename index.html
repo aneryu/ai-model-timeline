@@ -178,6 +178,7 @@ const DATA=[
 {company:"Google",model:"Gemini 3.7 Flash",date:"2026-08-14",source:MT},
 {company:"Google",model:"Gemini 3.8 Flash",date:"2026-09-03",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/"},
 {company:"Google",model:"Gemini 4 Argon",date:"2026-09-30",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/"},
+{company:"Google",model:"Nano Banana 2.1",date:"2026-10-06",source:"https://ai.google.dev/gemini-api/docs/changelog"},
 {company:"Meta",model:"Muse Spark",date:"2026-04-08",source:"https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/"},
 {company:"Meta",model:"Muse Spark 1.1",date:"2026-07-09",source:"https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/"},
 {company:"Meta",model:"Muse Spark 1.2",date:"2026-08-05",source:MT},
@@ -210,6 +211,7 @@ const DATA=[
 {company:"腾讯",model:"Hy3 preview",date:"2026-04-23",source:"https://www.tencent.com/zh-cn/articles/2202386.html"},
 {company:"腾讯",model:"Hy3",date:"2026-07-06",source:"https://www.tencent.com/zh-cn/tencent-hunyuan-officially-releases-hy3-advancing-agent-capabilities-and-deeper-product-integration/"},
 {company:"腾讯",model:"Hy4 preview",date:"2026-08-28",source:"https://www.tencent.com/zh-cn/tencent-releases-and-open-sources-tencent-hy4-preview/"},
+{company:"腾讯",model:"Hy Image3.5 preview",date:"2026-09-22",source:"https://stock.10jqka.com.cn/20260922/c680158119.shtml"},
 {company:"DeepSeek",model:"DeepSeek-V3.1",date:"2025-08-21",source:MT},
 {company:"DeepSeek",model:"DeepSeek-V3.2-Exp",date:"2025-09-29",source:"https://api-docs.deepseek.com/news/news250929"},
 {company:"DeepSeek",model:"DeepSeek-V3.2 / V3.2-Speciale",date:"2025-12-01",source:MT},
@@ -296,6 +298,7 @@ const DATA=[
 {company:"可灵",model:"Kling 2.6",date:"2025-12-03",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/keling26moxingtuichuyinhuatongchunengli"},
 {company:"可灵",model:"Kling 3.0 / 3.0 Omni",date:"2026-02-05",source:"https://ir.kuaishou.com/zh-hans/news-releases/news-release-details/keling30xiliemoxingquanmianshangxian"},
 {company:"可灵",model:"Kling 3.0 Turbo",date:"2026-06-17",source:"https://kling.ai/release-note/release-notes/Kling_3_Turbo"},
+{company:"可灵",model:"Kling 4.0 / 4.0 Flash（抢先体验）",date:"2026-09-30",source:"https://klingai.com/blog/kling40-kling-visual-realism-creative-control-introducing-storytelling"},
 {company:"小米",model:"MiMo-V2-Flash",date:"2025-12-16",source:"https://mimo.mi.com/docs/zh-CN/updates/model"},
 {company:"小米",model:"MiMo-V2-Pro / V2-Omni / V2-TTS",date:"2026-03-18",source:"https://mimo.mi.com/docs/zh-CN/news/previous-news/v2-pro-release"},
 {company:"小米",model:"MiMo-V2.5 / V2.5-Pro",date:"2026-04-23",source:"https://mimo.mi.com/docs/zh-CN/updates/model"},
@@ -310,7 +313,7 @@ const LINES={"OpenAI":["#10a37f","#129673","us"],"Anthropic":["#c4673f","#c46b4b
 "MiniMax":["#4c0519","#fda4af","cn"],"百度":["#3f6212","#d9f99d","cn"],"阶跃星辰":["#8f9e2e","#b5c447","cn"],"可灵":["#cf59cf","#e58ae5","cn"],"小米":["#6b7280","#9ca3af","cn"]};
 const ORDER=Object.keys(LINES);
 // 大版本首发：画成换乘站并直接标注。规则是"该系列新整数版本号的第一次发布"，按需增删。
-const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Muse Spark":"Muse Spark","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3","Grok 4 / Grok 4 Heavy":"Grok 4","MAI-1-preview / MAI-Voice-1":"MAI-1","Nova 2 Lite / Pro / Omni / Sonic":"Nova 2","Mistral Large 3 / Ministral 3":"Mistral 3","Mistral Small 4":"Small 4","Mistral Large 4 (preview)":"Large 4","MiniMax-M2":"M2","MiniMax-M3":"M3","文心 5.0 Preview":"文心 5","Step 3":"Step 3","Step 5 Preview":"Step 5","Kling 3.0 / 3.0 Omni":"Kling 3","MiMo-V2-Flash":"MiMo-V2"};
+const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Muse Spark":"Muse Spark","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3","Grok 4 / Grok 4 Heavy":"Grok 4","MAI-1-preview / MAI-Voice-1":"MAI-1","Nova 2 Lite / Pro / Omni / Sonic":"Nova 2","Mistral Large 3 / Ministral 3":"Mistral 3","Mistral Small 4":"Small 4","Mistral Large 4 (preview)":"Large 4","MiniMax-M2":"M2","MiniMax-M3":"M3","文心 5.0 Preview":"文心 5","Step 3":"Step 3","Step 5 Preview":"Step 5","Kling 3.0 / 3.0 Omni":"Kling 3","Kling 4.0 / 4.0 Flash（抢先体验）":"Kling 4","MiMo-V2-Flash":"MiMo-V2"};
 const OFFICIAL=["x.ai","microsoft.ai","azure.microsoft.com","aboutamazon.com","aws.amazon.com","mistral.ai","docs.mistral.ai","minimax.io","platform.minimaxi.com","home.baidu.com","ernie.baidu.com","stepfun.com","ir.kuaishou.com","kling.ai","mimo.mi.com","openai.com","anthropic.com","blog.google","about.fb.com","ai.meta.com","qwenlm.github.io","help.aliyun.com","seed.bytedance.com","tencent.com","deepseek.com","hiascend.com","huawei.com","moonshotai.github.io","kimi.com"];
 const NAMES={zh:{},en:{"百度":"Baidu","阶跃星辰":"StepFun","可灵":"Kling","小米":"Xiaomi","阿里巴巴":"Alibaba","字节跳动":"ByteDance","腾讯":"Tencent","华为":"Huawei","智谱":"Zhipu AI"}};
 const EN_M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
