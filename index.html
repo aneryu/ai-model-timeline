@@ -121,6 +121,38 @@ td a{color:var(--ink2)}
 footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mut);line-height:1.8;max-width:78em}
 footer a{color:var(--ink2)}
 @media(max-width:640px){.wrap{padding:26px 16px 32px}.labels{flex-basis:96px}.lab{font-size:13.5px}.lab small{display:none}.ctrl{padding-top:0}}
+
+#mob{display:none}
+@media(max-width:640px){.key,.filters,.map,#latest,details{display:none!important}#mob{display:block}
+.wrap{padding:20px 0 28px}header,footer{padding-left:16px;padding-right:16px}h1{font-size:28px}.lede{font-size:14px}}
+.mtop{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule2);padding:10px 0 8px}
+.tabs{display:flex;gap:4px;margin:0 16px 8px;background:var(--rule);border-radius:8px;padding:3px}
+.tabs button{flex:1;border:0;background:none;font:inherit;font-size:14px;color:var(--ink2);padding:7px 0;border-radius:6px;cursor:pointer}
+.tabs button.on{background:var(--bg);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 16px 2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule2);background:var(--bg);color:var(--ink2);font:inherit;font-size:13px;padding:5px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.grp{font-weight:600}.sep{flex:none;width:1px;background:var(--rule2);margin:4px 2px}
+.spark{display:flex;align-items:center;gap:8px;margin:8px 16px 0;font-size:11.5px;color:var(--mut)}.spark svg{flex:1;height:22px}
+.mh{position:sticky;top:var(--mt,120px);z-index:3;background:var(--bg);padding:12px 16px 6px;font-size:13px;font-weight:700;color:var(--ink2);display:flex;justify-content:space-between;border-bottom:1px solid var(--rule)}
+.mh small{font-weight:400;color:var(--mut)}
+.card{margin:8px 16px;border:1px solid var(--rule2);border-left:5px solid var(--c);border-radius:8px;padding:9px 12px;cursor:pointer;background:var(--bg)}
+.card.maj{box-shadow:inset 0 0 0 1px var(--c);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 9%,transparent),transparent 70%)}
+.card .r1{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--ink2)}
+.card .r1 b{color:var(--ink);font-weight:600}.card .r1 span{color:var(--mut);white-space:nowrap}
+.card .mdl{font-size:15.5px;font-weight:600;line-height:1.3;margin-top:3px}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:1px 7px 1px 4px;border-radius:999px;border:1.5px solid var(--ink);margin-left:6px;vertical-align:2px}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;border:2px solid var(--ink);background:var(--bg)}
+.srcs{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule2)}.card.open .srcs{display:block}
+.srcs a{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--ink2);padding:5px 0;text-decoration:none}
+.srcs a span:first-child{text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+.srcs .tg{flex:none;font-size:11px;border:1px solid var(--rule2);border-radius:3px;padding:0 5px;color:var(--ink2)}
+.chev{float:right;color:var(--mut);transition:transform .15s}.card.open .chev{transform:rotate(180deg)}
+.lrow{display:grid;grid-template-columns:5px 1fr auto;gap:4px 10px;margin:0 16px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.lrow i{grid-row:1/3;border-radius:3px;background:var(--c)}.lrow b{font-size:14px}.lrow .n{font-size:12px;color:var(--mut);text-align:right}
+.lrow .m{font-size:13.5px;font-weight:600}.lrow .d{font-size:12px;color:var(--mut);text-align:right}
+.empty{padding:30px 16px;color:var(--mut);text-align:center}
 </style>
 </head>
 <body>
@@ -136,6 +168,7 @@ footer a{color:var(--ink2)}
 <div class="filters" id="filters"></div>
 <div class="map"><div class="labels" id="labels"></div><div class="scroll" id="scroll"></div></div>
 <div id="latest"></div>
+<div id="mob"><div class="mtop" id="mtop"><div class="tabs" id="mtabs"></div><div class="chips" id="mchips"></div><div class="spark" id="mspark"></div></div><div id="mlist"></div></div>
 <details><summary id="tblsum"></summary><div id="tbl"></div></details>
 <footer id="foot"></footer>
 </div>
@@ -166,8 +199,8 @@ const DATA=[
 {company:"Anthropic",model:"Claude Mythos 5 / Fable 5",date:"2026-06-09",source:MT},
 {company:"Anthropic",model:"Claude Sonnet 5",date:"2026-06-30",source:"https://www.anthropic.com/news/claude-sonnet-5"},
 {company:"Anthropic",model:"Claude Opus 5",date:"2026-07-24",source:"https://www.anthropic.com/news/claude-opus-5"},
-{company:"Anthropic",model:"Claude Fable 5.1",date:"2026-09-02",source:MT},
-{company:"Anthropic",model:"Claude Opus 5.5",date:"2026-09-23",source:MT},
+{company:"Anthropic",model:"Claude Fable 5.1",date:"2026-09-02",source:"https://www.anthropic.com/claude-fable-and-mythos-5-1"},
+{company:"Anthropic",model:"Claude Opus 5.5",date:"2026-09-23",source:"https://www.anthropic.com/claude-opus-5-5"},
 {company:"Anthropic",model:"Claude Sonnet 5.5",date:"2026-09-28",source:"https://www.anthropic.com/claude-sonnet-5-5"},
 {company:"Anthropic",model:"Claude Haiku 5.5",date:"2026-10-07",source:"https://www.anthropic.com/claude-haiku-5-5"},
 {company:"Google",model:"Gemini 3.0 Pro",date:"2025-11-18",source:"https://blog.google/products/gemini/gemini-3/"},
@@ -233,9 +266,10 @@ const DATA=[
 {company:"智谱",model:"GLM-5.1",date:"2026-04-08",source:MT},
 {company:"智谱",model:"GLM-5V-Turbo",date:"2026-04-12",source:MT},
 {company:"智谱",model:"GLM-5.2",date:"2026-06-13",source:MT},
-{company:"智谱",model:"GLM-5.3",date:"2026-08-14",source:MT},
-{company:"智谱",model:"GLM-5.3-Flash",date:"2026-08-26",source:MT},
+{company:"智谱",model:"GLM-5.3",date:"2026-08-14",source:"https://z.ai/blog/glm-5.3"},
+{company:"智谱",model:"GLM-5.3-Flash",date:"2026-08-26",source:"https://z.ai/blog/glm-5.3-flash"},
 {company:"智谱",model:"GLM-5.3-FlashX",date:"2026-09-18",source:"https://finance.sina.com.cn/tech/digi/2026-09-18/doc-inisfprc3416049.shtml"},
+{company:"智谱",model:"GLM-Legal",date:"2026-10-12",source:"https://z.ai/blog/glm-legal"},
 {company:"Kimi",model:"Kimi K2",date:"2025-07-11",source:"https://moonshotai.github.io/Kimi-K2/"},
 {company:"Kimi",model:"Kimi K2.5",date:"2026-01-27",source:"https://www.kimi.com/blog/kimi-k2-5"},
 {company:"Kimi",model:"Kimi K2.6",date:"2026-04-20",source:"https://www.kimi.com/blog/kimi-k2-6"},
@@ -328,14 +362,14 @@ zh:{title:"AI 模型发布线路图",
  latestH:"各公司最新一站",groups:{us:"美国",eu:"欧洲",cn:"中国"},monthly:"每月发布",mon:m=>`${m}月`,d:(m,d)=>`${m}月${d}日`,full:(y,m,d)=>`${y}年${m}月${d}日`,
  ago:n=>n<=0?"今天":`${n} 天前`,sub:(dt,ago)=>`${dt}（${ago}）`,count:n=>`${n} 次`,off:"官方",third:"第三方",
  tbl:n=>`以表格查看全部 ${n} 次发布`,cols:["日期","公司","模型","来源"],filt:"显示或隐藏线路",themeL:"切换深浅色",
- foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-10。'},
+ foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-14。'},
 en:{title:"AI Model Release Map",
  lede:(n,c)=>`${n} releases from ${c} companies, July 2025 to October 2026. Each company is a line and each release a stop; the dotted tail after the last stop is how long it has gone without a new release.`,
  major:"First of a major version",minor:"Version update",multi:"Several on one day",gap:"Since latest release",today:"Today",hint:"Hover a stop for details; click to pin the card and open sources",
  latestH:"Latest stop by company",groups:{us:"United States",eu:"Europe",cn:"China"},monthly:"Per month",mon:m=>EN_M[m-1],d:(m,d)=>`${EN_M[m-1]} ${d}`,full:(y,m,d)=>`${EN_M[m-1]} ${d}, ${y}`,
  ago:n=>n<=0?"today":n==1?"1 day ago":`${n} days ago`,sub:(dt,ago)=>`${dt} (${ago})`,count:n=>`${n}`,off:"Official",third:"Third-party",
  tbl:n=>`View all ${n} releases as a table`,cols:["Date","Company","Model","Source"],filt:"Show or hide lines",themeL:"Toggle dark mode",
- foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-10.'},};
+ foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-14.'},};
 
 const qp=new URLSearchParams(location.search);
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
@@ -382,7 +416,7 @@ function render(){
  const rows=[...DATA].sort((a,b)=>a.date<b.date?1:-1);
  document.getElementById("tbl").innerHTML=`<table><thead><tr>${t.cols.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${rows.map(d=>{const[y,m,dd]=ymd(d.date);return`<tr><td>${t.full(y,m,dd)}</td><td>${cn(d.company)}</td><td>${esc(d.model)}</td><td><a href="${d.source}" target="_blank" rel="noopener">${host(d.source)}</a></td></tr>`}).join("")}</tbody></table>`;
  document.getElementById("foot").innerHTML=t.foot;
- hideTip();draw();
+ hideTip();draw();renderMobile();
 }
 
 function draw(){
@@ -492,7 +526,46 @@ document.addEventListener("click",()=>{if(pinned)hideTip()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")hideTip()});
 document.querySelectorAll("#lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;store.set("mt-lang",lang);render()});
 document.getElementById("theme").onclick=()=>{theme=theme==="dark"?"light":"dark";store.set("mt-theme",theme);render()};
-let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();draw()},120)});
+
+let mtab="tl",msel=null;const mopen=new Set();
+const MI={zh:{tl:"时间线",lt:"各公司最新",all:"全部",major:"大版本",n:n=>`${n} 次`,ym:(y,m)=>`${y}年${m}月`,spark:"每月",none:"没有符合筛选的发布",tot:n=>`共 ${n} 次`},
+en:{tl:"Timeline",lt:"Latest by company",all:"All",major:"Major",n:n=>`${n}`,ym:(y,m)=>`${EN_M[m-1]} ${y}`,spark:"Monthly",none:"No releases match this filter",tot:n=>`${n} releases`}};
+function mshow(c){return !msel||msel.has(c)}
+function renderMobile(){
+ if(innerWidth>640)return;
+ const t=I18N[lang],m=MI[lang];
+ document.getElementById("mtabs").innerHTML=[["tl",m.tl],["lt",m.lt]].map(([k,v])=>`<button data-k="${k}" class="${k===mtab?"on":""}">${v}</button>`).join("");
+ document.querySelectorAll("#mtabs button").forEach(b=>b.onclick=()=>{mtab=b.dataset.k;renderMobile();scrollTo({top:document.getElementById("mob").offsetTop})});
+ const grpOn=g=>msel&&ORDER.filter(c=>LINES[c][2]===g).every(c=>msel.has(c))&&msel.size===ORDER.filter(c=>LINES[c][2]===g).length;
+ const cnt=c=>DATA.filter(d=>d.company===c).length;
+ document.getElementById("mchips").innerHTML=`<button class="chip grp${!msel?" on":""}" data-a="all">${m.all}</button>`+["us","eu","cn"].map(g=>`<button class="chip grp${grpOn(g)?" on":""}" data-g="${g}">${t.groups[g]}</button>`).join("")+`<span class="sep"></span>`+ORDER.map(c=>`<button class="chip${msel&&msel.has(c)?" on":""}" data-c="${c}" style="--c:${col(c)}"><i></i>${cn(c)}</button>`).join("");
+ document.querySelectorAll("#mchips .chip").forEach(b=>b.onclick=()=>{
+  if(b.dataset.a)msel=null;
+  else if(b.dataset.g){const g=b.dataset.g;msel=grpOn(g)?null:new Set(ORDER.filter(c=>LINES[c][2]===g))}
+  else{const c=b.dataset.c;if(!msel)msel=new Set([c]);else{msel.has(c)?msel.delete(c):msel.add(c);if(!msel.size)msel=null}}
+  renderMobile()});
+ // sparkline
+ const vis=DATA.filter(d=>mshow(d.company)),months=[];for(let d=new Date(2025,6,1);d<=TODAY;d=new Date(d.getFullYear(),d.getMonth()+1,1))months.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`);
+ const mc=months.map(k=>vis.filter(d=>d.date.startsWith(k)).length),mx=Math.max(1,...mc),bw=100/months.length;
+ document.getElementById("mspark").innerHTML=`<span>${m.spark}</span><svg viewBox="0 0 100 22" preserveAspectRatio="none">${mc.map((v,i)=>`<rect x="${i*bw+.4}" y="${22-Math.max(v?1.5:0,v/mx*20)}" width="${bw-.8}" height="${Math.max(v?1.5:0,v/mx*20)}" fill="${v===mx?"var(--ink2)":"var(--bar)"}"/>`).join("")}</svg><span>${m.tot(vis.length)}</span>`;
+ const L=document.getElementById("mlist");
+ document.getElementById("mob").style.setProperty("--mt",document.getElementById("mtop").offsetHeight+"px");
+ if(mtab==="lt"){
+  const rows=ORDER.filter(mshow).map(c=>{const it=DATA.filter(d=>d.company===c).sort((a,b)=>a.date<b.date?1:-1)[0];return{c,it}}).sort((a,b)=>a.it.date<b.it.date?1:-1);
+  L.innerHTML=rows.map(({c,it})=>{const[y,mm,dd]=ymd(it.date);return`<div class="lrow" style="--c:${col(c)}"><i></i><b>${cn(c)}</b><span class="n">${t.count(cnt(c))}</span><span class="m">${esc(it.model)}</span><span class="d">${t.sub(t.d(mm,dd),t.ago(Math.round((TODAY-pd(it.date))/DAY)))}</span></div>`}).join("")||`<div class="empty">${m.none}</div>`;
+  return}
+ const by={};vis.forEach(d=>{const k=d.company+"|"+d.date;(by[k]=by[k]||{c:d.company,date:d.date,arr:[]}).arr.push(d)});
+ const nodes=Object.values(by).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:ORDER.indexOf(a.c)-ORDER.indexOf(b.c));
+ let html="",cur="";const mcount={};nodes.forEach(n=>{const k=n.date.slice(0,7);mcount[k]=(mcount[k]||0)+n.arr.length});
+ nodes.forEach(n=>{const k=n.date.slice(0,7);if(k!==cur){cur=k;const[y,mm]=k.split("-").map(Number);html+=`<div class="mh">${m.ym(y,mm)}<small>${m.tot(mcount[k])}</small></div>`}
+  const[y,mm,dd]=ymd(n.date),id=n.c+"|"+n.date,maj=n.arr.find(d=>MAJOR[d.model]);
+  html+=`<div class="card${maj?" maj":""}${mopen.has(id)?" open":""}" data-id="${esc(id)}" style="--c:${col(n.c)}"><div class="r1"><b>${cn(n.c)}</b><span>${t.sub(t.d(mm,dd),t.ago(Math.round((TODAY-pd(n.date))/DAY)))} <span class="chev">▾</span></span></div>`+
+  n.arr.map(d=>`<div class="mdl">${esc(d.model)}${MAJOR[d.model]?`<span class="badge">${esc(MAJOR[d.model])}</span>`:""}</div>`).join("")+
+  `<div class="srcs">${n.arr.map(d=>`<a href="${d.source}" target="_blank" rel="noopener"><span>${n.arr.length>1?esc(d.model)+" · ":""}${host(d.source)}</span><span class="tg">${official(d.source)?t.off:t.third}</span></a>`).join("")}</div></div>`});
+ L.innerHTML=html||`<div class="empty">${m.none}</div>`;
+ L.querySelectorAll(".card").forEach(e=>e.onclick=ev=>{if(ev.target.closest("a"))return;const id=e.dataset.id;mopen.has(id)?mopen.delete(id):mopen.add(id);e.classList.toggle("open")});
+}
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();draw();renderMobile()},120)});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>draw());
 render();
 </script>
