@@ -136,6 +136,7 @@ footer a{color:var(--ink2)}
 .chip.grp{font-weight:600}.sep{flex:none;width:1px;background:var(--rule2);margin:4px 2px}
 .spark{display:flex;align-items:center;gap:8px;margin:8px 16px 0;font-size:11.5px;color:var(--mut)}.spark svg{flex:1;height:22px}
 .mh{position:sticky;top:var(--mt,120px);z-index:3;background:var(--bg);padding:12px 16px 6px;font-size:13px;font-weight:700;color:var(--ink2);display:flex;justify-content:space-between;border-bottom:1px solid var(--rule)}
+.mh.tog{cursor:pointer}.mh.col{position:static;color:var(--ink);background:var(--rule);border-radius:6px;margin:6px 16px;padding:10px 12px;border-bottom:0}.mchev{display:inline-block;width:14px;color:var(--mut)}.mmore{display:block;margin:14px 16px 4px;width:calc(100% - 32px);font:inherit;font-size:13.5px;padding:9px;border:1px dashed var(--rule2);border-radius:8px;background:none;color:var(--ink2);cursor:pointer}
 .mh small{font-weight:400;color:var(--mut)}
 .card{margin:8px 16px;border:1px solid var(--rule2);border-left:5px solid var(--c);border-radius:8px;padding:9px 12px;cursor:pointer;background:var(--bg)}
 .card.maj{box-shadow:inset 0 0 0 1px var(--c);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 9%,transparent),transparent 70%)}
@@ -528,9 +529,9 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")hideTip()});
 document.querySelectorAll("#lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;store.set("mt-lang",lang);render()});
 document.getElementById("theme").onclick=()=>{theme=theme==="dark"?"light":"dark";store.set("mt-theme",theme);render()};
 
-let mtab="tl",msel=null;const mopen=new Set();
-const MI={zh:{tl:"时间线",lt:"各公司最新",all:"全部",major:"大版本",n:n=>`${n} 次`,ym:(y,m)=>`${y}年${m}月`,spark:"每月",none:"没有符合筛选的发布",tot:n=>`共 ${n} 次`},
-en:{tl:"Timeline",lt:"Latest by company",all:"All",major:"Major",n:n=>`${n}`,ym:(y,m)=>`${EN_M[m-1]} ${y}`,spark:"Monthly",none:"No releases match this filter",tot:n=>`${n} releases`}};
+let mtab="tl",msel=null;const mexp=new Set();const mopen=new Set();
+const MI={zh:{tl:"时间线",lt:"各公司最新",all:"全部",major:"大版本",n:n=>`${n} 次`,ym:(y,m)=>`${y}年${m}月`,spark:"每月",none:"没有符合筛选的发布",more:n=>`展开更早的 ${n} 个月`,less:"收起更早的月份",tap:"点按展开",tot:n=>`共 ${n} 次`},
+en:{tl:"Timeline",lt:"Latest by company",all:"All",major:"Major",n:n=>`${n}`,ym:(y,m)=>`${EN_M[m-1]} ${y}`,spark:"Monthly",none:"No releases match this filter",more:n=>`Show ${n} earlier months`,less:"Collapse earlier months",tap:"tap to expand",tot:n=>`${n} releases`}};
 function mshow(c){return !msel||msel.has(c)}
 function renderMobile(){
  if(innerWidth>640)return;
@@ -558,12 +559,22 @@ function renderMobile(){
  const by={};vis.forEach(d=>{const k=d.company+"|"+d.date;(by[k]=by[k]||{c:d.company,date:d.date,arr:[]}).arr.push(d)});
  const nodes=Object.values(by).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:ORDER.indexOf(a.c)-ORDER.indexOf(b.c));
  let html="",cur="";const mcount={};nodes.forEach(n=>{const k=n.date.slice(0,7);mcount[k]=(mcount[k]||0)+n.arr.length});
- nodes.forEach(n=>{const k=n.date.slice(0,7);if(k!==cur){cur=k;const[y,mm]=k.split("-").map(Number);html+=`<div class="mh">${m.ym(y,mm)}<small>${m.tot(mcount[k])}</small></div>`}
+ const cut=new Date(TODAY.getFullYear(),TODAY.getMonth()-3,TODAY.getDate());
+ const isOld=k=>{const[y,mo]=k.split("-").map(Number);return new Date(y,mo,0)<cut};
+ const oldKeys=[...new Set(nodes.map(n=>n.date.slice(0,7)))].filter(isOld),allOpen=oldKeys.length&&oldKeys.every(k=>mexp.has(k));
+ let shown=false;
+ nodes.forEach(n=>{const k=n.date.slice(0,7),old=isOld(k),shut=old&&!mexp.has(k);
+  if(k!==cur){cur=k;const[y,mm]=k.split("-").map(Number);
+   if(old&&!shown){shown=true;html+=`<button class="mmore" data-all="${allOpen?0:1}">${allOpen?m.less:m.more(oldKeys.length)}</button>`}
+   html+=`<div class="mh${old?" tog":""}${shut?" col":""}"${old?` data-k="${k}" role="button" tabindex="0" aria-expanded="${!shut}"`:""}><span>${old?`<span class="mchev">${shut?"▸":"▾"}</span>`:""}${m.ym(y,mm)}</span><small>${m.tot(mcount[k])}${shut?" · "+m.tap:""}</small></div>`}
+  if(shut)return;
   const[y,mm,dd]=ymd(n.date),id=n.c+"|"+n.date,maj=n.arr.find(d=>MAJOR[d.model]);
   html+=`<div class="card${maj?" maj":""}${mopen.has(id)?" open":""}" data-id="${esc(id)}" style="--c:${col(n.c)}"><div class="r1"><b>${cn(n.c)}</b><span>${t.sub(t.d(mm,dd),t.ago(Math.round((TODAY-pd(n.date))/DAY)))} <span class="chev">▾</span></span></div>`+
   n.arr.map(d=>`<div class="mdl">${esc(d.model)}${MAJOR[d.model]?`<span class="badge">${esc(MAJOR[d.model])}</span>`:""}</div>`).join("")+
   `<div class="srcs">${n.arr.map(d=>`<a href="${d.source}" target="_blank" rel="noopener"><span>${n.arr.length>1?esc(d.model)+" · ":""}${host(d.source)}</span><span class="tg">${official(d.source)?t.off:t.third}</span></a>`).join("")}</div></div>`});
  L.innerHTML=html||`<div class="empty">${m.none}</div>`;
+ L.querySelectorAll(".mh.tog").forEach(h=>{const go=()=>{const k=h.dataset.k;mexp.has(k)?mexp.delete(k):mexp.add(k);renderMobile()};h.onclick=go;h.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+ L.querySelectorAll(".mmore").forEach(b=>b.onclick=()=>{if(b.dataset.all==="1")oldKeys.forEach(k=>mexp.add(k));else oldKeys.forEach(k=>mexp.delete(k));renderMobile()});
  L.querySelectorAll(".card").forEach(e=>e.onclick=ev=>{if(ev.target.closest("a"))return;const id=e.dataset.id;mopen.has(id)?mopen.delete(id):mopen.add(id);e.classList.toggle("open")});
 }
 let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{hideTip();draw();renderMobile()},120)});
