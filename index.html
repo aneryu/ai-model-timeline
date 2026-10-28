@@ -216,6 +216,7 @@ const DATA=[
 {company:"Google",model:"Gemini 3.8 Flash",date:"2026-09-03",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/"},
 {company:"Google",model:"Gemini 4 Argon",date:"2026-09-30",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/"},
 {company:"Google",model:"Gemini 4 Argon (GA)",date:"2026-10-13",source:"https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/"},
+{company:"Google",model:"Genie 4",date:"2026-10-27",source:"https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/"},
 {company:"Google",model:"Nano Banana 2.1",date:"2026-10-06",source:"https://ai.google.dev/gemini-api/docs/changelog"},
 {company:"Meta",model:"Muse Spark",date:"2026-04-08",source:"https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/"},
 {company:"Meta",model:"Muse Spark 1.1",date:"2026-07-09",source:"https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/"},
@@ -240,6 +241,7 @@ const DATA=[
 {company:"阿里巴巴",model:"Qwen3.8-Omni-Flash",date:"2026-09-17",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
 {company:"阿里巴巴",model:"Qwen-Image-2.1-Pro",date:"2026-10-02",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
 {company:"阿里巴巴",model:"Qwen-Image-2.1-Turbo",date:"2026-10-09",source:"https://help.aliyun.com/zh/model-studio/newly-released-models"},
+{company:"阿里巴巴",model:"Qwen-Audio-3.1-Realtime-Flash",date:"2026-10-27",source:"https://www.alibabacloud.com/help/en/model-studio/newly-released-models"},
 {company:"字节跳动",model:"Seedance 2.0",date:"2026-02-12",source:"https://seed.bytedance.com/zh/blog/official-launch-of-seedance-2-0"},
 {company:"字节跳动",model:"Seedream 5.0 Lite",date:"2026-02-13",source:"https://seed.bytedance.com/zh/blog/deeper-thinking-more-accurate-generation-introducing-seedream-5-0-lite"},
 {company:"字节跳动",model:"Seed 2.0",date:"2026-02-14",source:"https://seed.bytedance.com/zh/blog/seed-2-0-official-launch"},
@@ -309,6 +311,7 @@ const DATA=[
 {company:"Microsoft",model:"MAI-Transcribe-2",date:"2026-09-03",source:"https://microsoft.ai/news/mai-transcribe-2-is-the-fastest-most-accurate-and-cheapest-speech-recognition-model-in-the-world/"},
 {company:"Microsoft",model:"MAI-Code-1.1-Flash",date:"2026-10-07",source:"https://microsoft.ai/news/mai-code-1-1-flash-br-better-faster-at-a-quarter-of-the-cost/"},
 {company:"Microsoft",model:"Microsoft-Decision-1",date:"2026-10-09",source:"https://commandline.microsoft.com/microsoft-decision-1-model-foundry/"},
+{company:"Microsoft",model:"MAI-Image-2.7-Preview",date:"2026-10-27",source:"https://microsoft.ai/news/mai-image-2-7-debut/"},
 {company:"Amazon",model:"Nova 2 Lite / Pro / Omni / Sonic",date:"2025-12-02",source:"https://www.aboutamazon.com/news/aws/aws-agentic-ai-amazon-bedrock-nova-models"},
 {company:"Amazon",model:"Nova 2.5 Sonic",date:"2026-10-05",source:"https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-nova-2.5-sonic/"},
 {company:"Mistral",model:"Devstral Medium / Small 1.1",date:"2025-07-10",source:"https://docs.mistral.ai/resources/changelogs"},
@@ -369,7 +372,7 @@ const LINES={"OpenAI":["#10a37f","#129673","us"],"Anthropic":["#c4673f","#c46b4b
 "MiniMax":["#4c0519","#fda4af","cn"],"百度":["#3f6212","#d9f99d","cn"],"阶跃星辰":["#8f9e2e","#b5c447","cn"],"可灵":["#cf59cf","#e58ae5","cn"],"小米":["#6b7280","#9ca3af","cn"]};
 const ORDER=Object.keys(LINES);
 // 大版本首发：画成换乘站并直接标注。规则是"该系列新整数版本号的第一次发布"，按需增删。
-const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Muse Spark":"Muse Spark","Muse Wonder / Muse Wonder Full":"Muse Wonder","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3","Grok 4 / Grok 4 Heavy":"Grok 4","MAI-1-preview / MAI-Voice-1":"MAI-1","Nova 2 Lite / Pro / Omni / Sonic":"Nova 2","Mistral Large 3 / Ministral 3":"Mistral 3","Mistral Small 4":"Small 4","Mistral Large 4 (preview)":"Large 4","Timestral":"Timestral","MiniMax-M2":"M2","MiniMax-M3":"M3","文心 5.0 Preview":"文心 5","Step 3":"Step 3","Step 5 Preview":"Step 5","Kling 3.0 / 3.0 Omni":"Kling 3","Kling 4.0 / 4.0 Flash（抢先体验）":"Kling 4","MiMo-V2-Flash":"MiMo-V2","Hy-Nomas":"Hy-Nomas","Hy-SimulMT":"Hy-SimulMT"};
+const MAJOR={"GPT-5":"GPT-5","GPT-6 Astra":"GPT-6","Claude Mythos 5 / Fable 5":"Claude 5","Gemini 3.0 Pro":"Gemini 3","Gemini 4 Argon":"Gemini 4","Genie 4":"Genie 4","Muse Spark":"Muse Spark","Muse Wonder / Muse Wonder Full":"Muse Wonder","Seed 2.0":"Seed 2.0","Hy3 preview":"Hy3","Hy4 preview":"Hy4","DeepSeek-V4 Pro / Flash Preview":"V4","openPangu-2.0-Flash":"openPangu 2.0","GLM-5":"GLM-5","Kimi K2":"K2","Kimi K3":"K3","Grok 4 / Grok 4 Heavy":"Grok 4","MAI-1-preview / MAI-Voice-1":"MAI-1","Nova 2 Lite / Pro / Omni / Sonic":"Nova 2","Mistral Large 3 / Ministral 3":"Mistral 3","Mistral Small 4":"Small 4","Mistral Large 4 (preview)":"Large 4","Timestral":"Timestral","MiniMax-M2":"M2","MiniMax-M3":"M3","文心 5.0 Preview":"文心 5","Step 3":"Step 3","Step 5 Preview":"Step 5","Kling 3.0 / 3.0 Omni":"Kling 3","Kling 4.0 / 4.0 Flash（抢先体验）":"Kling 4","MiMo-V2-Flash":"MiMo-V2","Hy-Nomas":"Hy-Nomas","Hy-SimulMT":"Hy-SimulMT"};
 const OFFICIAL=["x.ai","microsoft.ai","azure.microsoft.com","aboutamazon.com","aws.amazon.com","mistral.ai","docs.mistral.ai","minimax.io","platform.minimaxi.com","home.baidu.com","ernie.baidu.com","stepfun.com","ir.kuaishou.com","kling.ai","mimo.mi.com","openai.com","anthropic.com","blog.google","about.fb.com","ai.meta.com","research.meta.ai","commandline.microsoft.com","qwenlm.github.io","help.aliyun.com","seed.bytedance.com","tencent.com","deepseek.com","hiascend.com","huawei.com","moonshotai.github.io","kimi.com"];
 const NAMES={zh:{},en:{"百度":"Baidu","阶跃星辰":"StepFun","可灵":"Kling","小米":"Xiaomi","阿里巴巴":"Alibaba","字节跳动":"ByteDance","腾讯":"Tencent","华为":"Huawei","智谱":"Zhipu AI"}};
 const EN_M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -380,14 +383,14 @@ zh:{title:"AI 模型发布线路图",
  latestH:"各公司最新一站",groups:{us:"美国",eu:"欧洲",cn:"中国"},monthly:"每月发布",mon:m=>`${m}月`,d:(m,d)=>`${m}月${d}日`,full:(y,m,d)=>`${y}年${m}月${d}日`,
  ago:n=>n<=0?"今天":`${n} 天前`,sub:(dt,ago)=>`${dt}（${ago}）`,count:n=>`${n} 次`,off:"官方",third:"第三方",
  tbl:n=>`以表格查看全部 ${n} 次发布`,cols:["日期","公司","模型","来源"],filt:"显示或隐藏线路",themeL:"切换深浅色",
- foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-27。'},
+ foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-28。'},
 en:{title:"AI Model Release Map",
  lede:(n,c)=>`${n} releases from ${c} companies, July 2025 to October 2026. Each company is a line and each release a stop; the dotted tail after the last stop is how long it has gone without a new release.`,
  major:"First of a major version",minor:"Version update",multi:"Several on one day",gap:"Since latest release",today:"Today",hint:"Hover a stop for details; click to pin the card and open sources",
  latestH:"Latest stop by company",groups:{us:"United States",eu:"Europe",cn:"China"},monthly:"Per month",mon:m=>EN_M[m-1],d:(m,d)=>`${EN_M[m-1]} ${d}`,full:(y,m,d)=>`${EN_M[m-1]} ${d}, ${y}`,
  ago:n=>n<=0?"today":n==1?"1 day ago":`${n} days ago`,sub:(dt,ago)=>`${dt} (${ago})`,count:n=>`${n}`,off:"Official",third:"Third-party",
  tbl:n=>`View all ${n} releases as a table`,cols:["Date","Company","Model","Source"],filt:"Show or hide lines",themeL:"Toggle dark mode",
- foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-27.'},};
+ foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-28.'},};
 
 const qp=new URLSearchParams(location.search);
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
