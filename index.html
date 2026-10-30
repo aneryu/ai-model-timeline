@@ -330,6 +330,7 @@ const DATA=[
 {company:"Mistral",model:"Mistral Large 4 (preview)",date:"2026-10-06",source:"https://mistral.ai/news/mistral-large-4/"},
 {company:"Mistral",model:"Timestral",date:"2026-10-15",source:"https://mistral.ai/news/timestral/"},
 {company:"Mistral",model:"Voxtral 3",date:"2026-10-20",source:"https://mistral.ai/news/voxtral-3/"},
+{company:"Mistral",model:"Mistral Large 4 (open weights)",date:"2026-10-29",source:"https://mistral.ai/news/mistral-large-4-oss/"},
 {company:"MiniMax",model:"MiniMax-M2",date:"2025-10-27",source:"https://www.minimax.io/news/minimax-m2"},
 {company:"MiniMax",model:"MiniMax-Hailuo-2.3",date:"2025-10-28",source:"https://www.minimax.io/news/minimax-hailuo-23"},
 {company:"MiniMax",model:"MiniMax-M2.1",date:"2025-12-23",source:"https://www.minimax.io/news/minimax-m21"},
@@ -384,14 +385,14 @@ zh:{title:"AI 模型发布线路图",
  latestH:"各公司最新一站",groups:{us:"美国",eu:"欧洲",cn:"中国"},monthly:"每月发布",mon:m=>`${m}月`,d:(m,d)=>`${m}月${d}日`,full:(y,m,d)=>`${y}年${m}月${d}日`,
  ago:n=>n<=0?"今天":`${n} 天前`,sub:(dt,ago)=>`${dt}（${ago}）`,count:n=>`${n} 次`,off:"官方",third:"第三方",
  tbl:n=>`以表格查看全部 ${n} 次发布`,cols:["日期","公司","模型","来源"],filt:"显示或隐藏线路",themeL:"切换深浅色",
- foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-29。'},
+ foot:'数据来源：<a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>、<a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>、各公司官方公告（OpenAI、Anthropic、Google、Meta、阿里云、DeepSeek、Kimi、字节跳动 Seed、腾讯、华为、xAI、Microsoft AI、Amazon、Mistral、MiniMax、百度、阶跃星辰、快手可灵、小米 MiMo 等）及新闻报道。仅收录在来源中实际查到的条目，同一天发布的多个型号合并为一站。整理日期：2026-10-30。'},
 en:{title:"AI Model Release Map",
  lede:(n,c)=>`${n} releases from ${c} companies, July 2025 to October 2026. Each company is a line and each release a stop; the dotted tail after the last stop is how long it has gone without a new release.`,
  major:"First of a major version",minor:"Version update",multi:"Several on one day",gap:"Since latest release",today:"Today",hint:"Hover a stop for details; click to pin the card and open sources",
  latestH:"Latest stop by company",groups:{us:"United States",eu:"Europe",cn:"China"},monthly:"Per month",mon:m=>EN_M[m-1],d:(m,d)=>`${EN_M[m-1]} ${d}`,full:(y,m,d)=>`${EN_M[m-1]} ${d}, ${y}`,
  ago:n=>n<=0?"today":n==1?"1 day ago":`${n} days ago`,sub:(dt,ago)=>`${dt} (${ago})`,count:n=>`${n}`,off:"Official",third:"Third-party",
  tbl:n=>`View all ${n} releases as a table`,cols:["Date","Company","Model","Source"],filt:"Show or hide lines",themeL:"Toggle dark mode",
- foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-28.'},};
+ foot:'Sources: <a href="https://modeltimeline.com/zh/" target="_blank" rel="noopener">modeltimeline.com/zh</a>, <a href="https://www.datalearner.com/whats-new" target="_blank" rel="noopener">DataLearner</a>, official announcements (OpenAI, Anthropic, Google, Meta, Alibaba Cloud, DeepSeek, Kimi, ByteDance Seed, Tencent, Huawei, xAI, Microsoft AI, Amazon, Mistral, MiniMax, Baidu, StepFun, Kuaishou Kling, Xiaomi MiMo, etc.) and news reports. Only entries actually found in sources are included; models released on the same day are merged into one stop. Compiled: 2026-10-30.'},};
 
 const qp=new URLSearchParams(location.search);
 const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
